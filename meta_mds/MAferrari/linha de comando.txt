@@ -1,0 +1,3 @@
+
+0:
+./MAferrari/MAAttributes /Dataset/dim1024.data

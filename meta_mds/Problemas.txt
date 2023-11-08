@@ -1,0 +1,45 @@
+Problemas no tensorflow
+ - https://stackoverflow.com/questions/66964492/importerror-cannot-import-name-get-config-from-tensorflow-python-eager-conte
+ * https://www.datasciencelearner.com/importerror-cannot-import-name-get_config-from-tensorflow-python-eager-context/
+
+Laurikkala (outliers): https://asset-pdf.scinapse.io/prod/80011902/80011902.pdf
+
+Dataset acute nao us o y. corrigir: comentar linha 40 meta_atributos.py e linha 23, 42, 64, 77, 89 calcula_ma.py
+
+Calculo IQR antigo
+def metric_perc_outllier(X):
+
+    //Xc = X[:,0]
+
+    fator = 1.5
+    q3, q1 = np.percentile(Xc, [75, 25])
+
+    iqr = q3 - q1
+
+    lowpass = q1 - (iqr * fator)
+    highpass = q3 + (iqr * fator)
+
+    cc = 0
+    for i in Xc:
+        if i > lowpass and i < highpass:
+            cc = cc + 1
+    per = (1 - cc/int(Xc.size))
+    
+    return per
+
+Explicações de algumas funçoes
+Na base de dados original:
+  - D_high_list = spatial.distance.pdist(X, 'euclidean') - retorna uma matrix de distancia condensada utilizando distancia euclidiana
+  - D_high_matrix = spatial.distance.squareform(D_high_list) - Converte um vetor de distância, em forma de vetor, em uma matriz de distância em forma quadrada e vice-versa.
+  - X_new = proj.fit_transform(X, y) - roda a projeção na base original e retorna os dados em 2D (projetado)
+
+Verificações:
+  - TSNE e UMAP: stress normalizado fora da faixa (RESOLVIDO)
+  - LAMP: diagrama de shepard não apresenta correlação (sem valor) (RESOLVIDO)
+  - testar mds no python36 (ver questao do warning version 1.4 "normalized stress")
+  - IPCA: Aprensenta apenas um parametro, logo, stress e shepard normalizam para 0, e ai?
+  
+Importante:
+  - A pasta results_somesnte_MDDistancia_euc_corr contem as medidas MDS utilizando distancia euclideana e correlação
+  - A pasta results_euc_corr contem as medias MA, MD e MQ dos datasets Arrythimia, coil20, fmd, imdb, sentiment, spambase, svhn. MD foi calculado com distancia euclideana e correlação.
+  - A pasta data_geral guarda a bases que seram processadas
