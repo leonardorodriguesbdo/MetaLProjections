@@ -1,4 +1,4 @@
-# MetaLProjections
+# MetaLProjection
 
 - Code for extracting meta-attributes and creating the meta-knowledge base in "meta_mds"
 - Code to validate the data and generate the graphs in “knn”
